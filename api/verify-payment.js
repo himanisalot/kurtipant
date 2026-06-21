@@ -160,12 +160,14 @@ module.exports = async (req, res) => {
   };
 
   const errors = [];
+  const errorDetails = {};
 
   try {
     await appendToSheet(orderDetails);
   } catch (err) {
     console.error('Google Sheets append failed:', err);
     errors.push('sheet');
+    errorDetails.sheet = err && err.message ? err.message : String(err);
   }
 
   try {
@@ -173,6 +175,7 @@ module.exports = async (req, res) => {
   } catch (err) {
     console.error('Email send failed:', err);
     errors.push('email');
+    errorDetails.email = err && err.message ? err.message : String(err);
   }
 
   res.status(200).json({
@@ -180,5 +183,6 @@ module.exports = async (req, res) => {
     orderId: razorpay_order_id,
     paymentId: razorpay_payment_id,
     warnings: errors,
+    errorDetails,
   });
 };
