@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Creative Fashion by Himani — Kurtis &amp; Combos</title>
+<meta name="description" content="Handpicked kurtis, palazzo pants and combos from Creative Fashion by Himani. Sizes XXS–8XL. Order directly, pay securely, delivered to your door." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,400..600&family=Outfit:wght@300..700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- ============ HEADER ============ -->
+<header class="site-header">
+  <div class="header-inner">
+    <img src="assets/logo.png" alt="Creative Fashion by Himani" class="logo">
+    <nav class="header-nav">
+      <a href="#shop">Shop</a>
+      <a href="#sizes">Size guide</a>
+      <a href="#order">Order</a>
+    </nav>
+    <button class="cart-toggle" id="cartToggle" aria-label="Open cart">
+      <span class="cart-icon">🛍</span>
+      <span class="cart-count" id="cartCount">0</span>
+    </button>
+  </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="hero-arch">
+    <img src="assets/kurti-purple.jpg" alt="Model wearing a purple Creative Fashion by Himani kurti" class="hero-img">
+  </div>
+  <div class="hero-copy">
+    <p class="hero-eyebrow">Stitched in small batches</p>
+    <h1 class="hero-title">Kurtis that move<br>the way <em>you</em> do.</h1>
+    <p class="hero-sub">Five colours, one silhouette, sizes XXS through 8XL. Pair with our palazzo pants or take the full combo.</p>
+    <a href="#shop" class="btn btn-primary">See the collection</a>
+  </div>
+</section>
+
+<!-- ============ SHOP ============ -->
+<section class="shop" id="shop">
+  <div class="section-head">
+    <p class="section-eyebrow">The collection</p>
+    <h2 class="section-title">Pick your colour</h2>
+  </div>
+
+  <div class="product-grid" id="kurtiGrid">
+    <!-- Kurti cards injected by JS from PRODUCTS list, see app.js -->
+  </div>
+
+  <div class="section-head section-head--tight">
+    <p class="section-eyebrow">Complete the look</p>
+    <h2 class="section-title">Pant &amp; combo</h2>
+  </div>
+
+  <div class="product-grid product-grid--pair" id="extraGrid">
+    <!-- Pant + Combo cards injected by JS -->
+  </div>
+</section>
+
+<!-- ============ SIZE CHART ============ -->
+<section class="sizes" id="sizes">
+  <div class="section-head">
+    <p class="section-eyebrow">Before you choose</p>
+    <h2 class="section-title">Size guide</h2>
+    <p class="section-note">All measurements in inches. Not sure between two sizes? Go up — our cuts are relaxed, not tight.</p>
+  </div>
+
+  <div class="size-table-wrap">
+    <table class="size-table">
+      <thead>
+        <tr>
+          <th>Size</th><th>XXS</th><th>XS</th><th>S</th><th>M</th><th>L</th><th>XL</th><th>XXL</th><th>3XL</th><th>4XL</th><th>5XL</th><th>6XL</th><th>7XL</th><th>8XL</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><th>Chest</th><td>30</td><td>32</td><td>34</td><td>36</td><td>38</td><td>40</td><td>42</td><td>44</td><td>46</td><td>48</td><td>50</td><td>52</td><td>54</td></tr>
+        <tr><th>Waist</th><td>24</td><td>26</td><td>28</td><td>30</td><td>32</td><td>34</td><td>36</td><td>38</td><td>40</td><td>42</td><td>44</td><td>46</td><td>48</td></tr>
+        <tr><th>Hip</th><td>32</td><td>34</td><td>36</td><td>37</td><td>39.5</td><td>42</td><td>43</td><td>46</td><td>48</td><td>50</td><td>52</td><td>54</td><td>56</td></tr>
+        <tr><th>Armhole</th><td>14</td><td>14.5</td><td>15</td><td>16.5</td><td>18</td><td>19</td><td>20</td><td>20.5</td><td>21</td><td>22</td><td>22.5</td><td>23</td><td>23.5</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ============ ORDER / CART + FORM ============ -->
+<section class="order" id="order">
+  <div class="section-head">
+    <p class="section-eyebrow">Almost there</p>
+    <h2 class="section-title">Your order</h2>
+  </div>
+
+  <div class="order-layout">
+    <div class="cart-panel">
+      <div id="cartEmpty" class="cart-empty">
+        <p>Your bag is empty.</p>
+        <a href="#shop" class="btn btn-ghost">Browse the collection</a>
+      </div>
+      <ul class="cart-list" id="cartList"></ul>
+      <div class="cart-total-row" id="cartTotalRow" hidden>
+        <span>Total</span>
+        <span id="cartTotal">₹0</span>
+      </div>
+    </div>
+
+    <form class="checkout-form" id="checkoutForm" novalidate>
+      <h3 class="form-title">Delivery details</h3>
+
+      <label class="field">
+        <span>Full name</span>
+        <input type="text" name="name" id="custName" required autocomplete="name">
+      </label>
+
+      <label class="field">
+        <span>Height (for fit reference)</span>
+        <input type="text" name="height" id="custHeight" placeholder="e.g. 5 ft 4 in" required>
+      </label>
+
+      <label class="field">
+        <span>Contact number</span>
+        <input type="tel" name="contact" id="custContact" placeholder="10-digit mobile number" required autocomplete="tel" pattern="[0-9]{10}">
+      </label>
+
+      <label class="field">
+        <span>Email <span class="field-optional">(for order confirmation, optional)</span></span>
+        <input type="email" name="email" id="custEmail" autocomplete="email">
+      </label>
+
+      <label class="field field--wide">
+        <span>Delivery address</span>
+        <textarea name="address" id="custAddress" rows="3" required autocomplete="street-address"></textarea>
+      </label>
+
+      <p class="form-note" id="formNote" role="alert"></p>
+
+      <button type="submit" class="btn btn-primary btn-pay" id="payBtn" disabled>
+        <span id="payBtnLabel">Add an item to continue</span>
+      </button>
+      <p class="form-fineprint">Full payment is collected in advance to confirm your order. Secure checkout via Razorpay.</p>
+    </form>
+  </div>
+</section>
+
+<!-- ============ FLOATING CART DRAWER ============ -->
+<aside class="cart-drawer" id="cartDrawer" aria-hidden="true">
+  <div class="cart-drawer-head">
+    <span>Your bag</span>
+    <button id="cartClose" aria-label="Close cart">✕</button>
+  </div>
+  <ul class="cart-list" id="drawerCartList"></ul>
+  <div class="cart-drawer-foot">
+    <div class="cart-total-row">
+      <span>Total</span>
+      <span id="drawerCartTotal">₹0</span>
+    </div>
+    <a href="#order" class="btn btn-primary" id="drawerCheckoutBtn">Go to checkout</a>
+  </div>
+</aside>
+<div class="cart-overlay" id="cartOverlay"></div>
+
+<!-- ============ FOOTER ============ -->
+<footer class="site-footer">
+  <img src="assets/logo.png" alt="Creative Fashion by Himani" class="footer-logo">
+  <p>Made with care, one kurti at a time.</p>
+</footer>
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script src="products.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
