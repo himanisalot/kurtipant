@@ -40,7 +40,7 @@ async function appendToSheet({ orderId, paymentId, customer, items, total }) {
   );
   const sheets = google.sheets({ version: 'v4', auth });
 
-  await sheets.spreadsheets.values.append({
+  const response = await sheets.spreadsheets.values.append({
     spreadsheetId: process.env.GOOGLE_SHEET_ID,
     range: 'Orders!A:I',
     valueInputOption: 'USER_ENTERED',
@@ -59,6 +59,11 @@ async function appendToSheet({ orderId, paymentId, customer, items, total }) {
       ]],
     },
   });
+
+  return {
+    updatedRange: response.data.updates ? response.data.updates.updatedRange : null,
+    spreadsheetId: response.data.spreadsheetId,
+  };
 }
 
 async function sendEmails({ orderId, paymentId, customer, items, total }) {
@@ -163,7 +168,8 @@ module.exports = async (req, res) => {
   const errorDetails = {};
 
   try {
-    await appendToSheet(orderDetails);
+    const sheetResult = await appendToSheet(orderDetails);
+    errorDetails.sheetSuccess = sheetResult;
   } catch (err) {
     console.error('Google Sheets append failed:', err);
     errors.push('sheet');
