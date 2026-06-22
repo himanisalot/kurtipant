@@ -40,7 +40,7 @@ async function appendToSheet({ orderId, paymentId, customer, items, total }) {
   );
   const sheets = google.sheets({ version: 'v4', auth });
 
-  const response = await sheets.spreadsheets.values.append({
+  await sheets.spreadsheets.values.append({
     spreadsheetId: process.env.GOOGLE_SHEET_ID,
     range: 'Orders!A:I',
     valueInputOption: 'USER_ENTERED',
@@ -59,11 +59,6 @@ async function appendToSheet({ orderId, paymentId, customer, items, total }) {
       ]],
     },
   });
-
-  return {
-    updatedRange: response.data.updates ? response.data.updates.updatedRange : null,
-    spreadsheetId: response.data.spreadsheetId,
-  };
 }
 
 async function sendEmails({ orderId, paymentId, customer, items, total }) {
@@ -165,15 +160,12 @@ module.exports = async (req, res) => {
   };
 
   const errors = [];
-  const errorDetails = {};
 
   try {
-    const sheetResult = await appendToSheet(orderDetails);
-    errorDetails.sheetSuccess = sheetResult;
+    await appendToSheet(orderDetails);
   } catch (err) {
     console.error('Google Sheets append failed:', err);
     errors.push('sheet');
-    errorDetails.sheet = err && err.message ? err.message : String(err);
   }
 
   try {
@@ -181,7 +173,6 @@ module.exports = async (req, res) => {
   } catch (err) {
     console.error('Email send failed:', err);
     errors.push('email');
-    errorDetails.email = err && err.message ? err.message : String(err);
   }
 
   res.status(200).json({
@@ -189,6 +180,5 @@ module.exports = async (req, res) => {
     orderId: razorpay_order_id,
     paymentId: razorpay_payment_id,
     warnings: errors,
-    errorDetails,
   });
 };

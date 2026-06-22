@@ -1,8 +1,8 @@
 // app.js
 // Renders product cards, manages cart state in memory, drives the
-// checkout form, and talks to the two Netlify functions:
-//   /.netlify/functions/create-order   -> get a Razorpay order to pay
-//   /.netlify/functions/verify-payment -> confirm + log + email after pay
+// checkout form, and talks to the two API functions:
+//   /api/create-order   -> get a Razorpay order to pay
+//   /api/verify-payment -> confirm + log + email after pay
 
 (function () {
   'use strict';
@@ -147,7 +147,6 @@
     payBtn.disabled = isEmpty;
     payLabel.textContent = isEmpty ? 'Add an item to continue' : `Pay ₹${total} to confirm order`;
 
-    // wire up qty + remove for both lists
     document.querySelectorAll('.cart-qty').forEach((el) => {
       el.addEventListener('change', (e) => updateQty(e.target.dataset.key, Number(e.target.value)));
     });
